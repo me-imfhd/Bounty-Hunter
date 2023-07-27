@@ -1,13 +1,13 @@
-import { Paper } from "@mui/material";
+import { Divider, Paper } from "@mui/material";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const ServicesCard = () => {
   return (
     <>
       <Paper
-        sx={{ marginTop:"1.5em",backgroundColor: "#231f20", color: "#eeeeee" }}
+        sx={{ marginTop:"1.5em",backgroundColor: "#212121", color: "#eeeeee" }}
       >
-        <div style={{padding:"1em 1em 1.5em 1em", backgroundColor: "#231f20", color: "#eeeeee", borderBottom:"1px solid gray"}}>
+        <div style={{padding:"1em 1em 1.5em 1em", backgroundColor: "#212121", color: "#eeeeee"}}>
           <div
             style={{
               display: "flex",
@@ -39,6 +39,7 @@ const ServicesCard = () => {
             directly.
           </div>
         </div>
+          <Divider sx={{bgcolor:"gray"}} orientation="horizontal"/>
       </Paper>
     </>
   );
