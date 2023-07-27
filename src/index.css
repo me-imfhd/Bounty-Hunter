@@ -2,18 +2,22 @@
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
+    border:"1px solid red"
 }
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400;
-    font-size: 10px;
-
+    
     color: #eeeeee;
     background-color: hsl(0, 0%, 16%) ;
-
+    
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+}
+html{
+    font-size: 10px;
+
 }
