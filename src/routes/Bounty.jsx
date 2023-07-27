@@ -1,6 +1,6 @@
 
-import { Container, Button,Paper } from "@mui/material";
-import Template from "../components/template";
+import { Container, Button, Divider } from "@mui/material";
+import BountiesHeaders from "../components/BountiesHeaders";
 import { useState } from "react";
 import ServicesCard from "./Services/ServicesCard";
 const Bounty = () => {
@@ -28,7 +28,7 @@ const Bounty = () => {
   return (
     <>
       <Container maxWidth="md">
-        <Template title={title} description={description}></Template>
+        <BountiesHeaders title={title} description={description}></BountiesHeaders>
         <div
           style={{
             display: "flex",
@@ -43,45 +43,41 @@ const Bounty = () => {
           <Button
             sx={{
               mr: "2px",
-              fontSize: "1.25em",
-              borderRadius: "0",
-              borderRight: "1px solid #1976d2",
+              fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
             }}
             variant="text"
             onClick={()=>{handleSection("All Bounties")}}
             >
             All Bounties
           </Button>
+          <Divider sx={{bgcolor:"gray", width:"0.15em"}}orientation="vertical" variant="middle" flexItem />
           <Button
             sx={{
-                mx: "2px",
-                fontSize: "1.25em",
-              borderRadius: "0",
-              borderRight: "1px solid #1976d2",
+              mx: "2px",
+                fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
             }}
             variant="text"
             onClick={()=>{handleSection("Posted Bounties")}}
             >
             Posted Bounties
           </Button>
+          <Divider sx={{bgcolor:"gray", width:"0.15em"}}orientation="vertical" variant="middle" flexItem />
           <Button
             sx={{
               mx: "2px",
-              fontSize: "1.25em",
-              borderRadius: "0",
-              borderRight: "1px solid #1976d2",
+              fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
             }}
             variant="text"
             onClick={()=>{handleSection("Assigned Bounties")}}
           >
             Assigned Bounties
           </Button>
-          <Button sx={{ mx: "2px", fontSize: "1.25em" }} variant="text" onClick={()=>{handleSection("Services")}}>
+            <Divider sx={{bgcolor:"gray", width:"0.15em"}}orientation="vertical" variant="middle" flexItem />
+          <Button sx={{ mx: "2px", fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"} }} variant="text" onClick={()=>{handleSection("Services")}}>
             Services
           </Button>
         </div>
         {title== "Bounties" && <ServicesCard/>}
-        
       </Container>
     </>
   );
