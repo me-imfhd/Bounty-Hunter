@@ -1,88 +1,120 @@
-
-import { Container, Button, Divider } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import BountiesHeaders from "../components/BountiesHeaders";
 import { useState } from "react";
-import ServicesCard from "./Services/ServicesCard";
+import ServicesSection from "./Services/ServicesSection";
 const Bounty = () => {
-    const [title, setTitle] = useState("Bounties")
-    const [description, setDescription] = useState("Work with Top Taskmates to actualize your dream project.")
-    function handleSection(section){
-        if(section === "All Bounties"){
-            setTitle("Bounties");
-            setDescription("Work with Top Taskmates to actualize your dream project.")
-        }
-        if(section === "Posted Bounties"){
-            setTitle("Your Posted Bounties");
-            setDescription("View Bounties that you have posted.")
-        }
-        if(section === "Assigned Bounties"){
-            setTitle("Your Assigned Bounties");
-            setDescription("View Bounties that you have applied for.")
-        }
-        if(section === "Services"){
-            setTitle("Find a Service");
-            setDescription("Skip posting a Bounty and hire one of our top Bounty Hunters directly.")
-        }
-        
+  const [title, setTitle] = useState("Bounties");
+  const [description, setDescription] = useState(
+    "Work with Top Taskmates to actualize your dream project."
+  );
+  function handleSection(section) {
+    if (section === "All Bounties") {
+      setTitle("Bounties");
+      setDescription(
+        "Work with Top Taskmates to actualize your dream project."
+      );
     }
+    if (section === "Posted Bounties") {
+      setTitle("Your Posted Bounties");
+      setDescription("View Bounties that you have posted.");
+    }
+    if (section === "Assigned Bounties") {
+      setTitle("Your Assigned Bounties");
+      setDescription("View Bounties that you have applied for.");
+    }
+    if (section === "Services") {
+      setTitle("Find a Service");
+      setDescription(
+        "Skip posting a Bounty and hire one of our top Bounty Hunters directly."
+      );
+    }
+  }
   return (
     <>
       <Container maxWidth="md">
-        <BountiesHeaders title={title} description={description}></BountiesHeaders>
+        <BountiesHeaders
+          title={title}
+          description={description}
+        ></BountiesHeaders>
         <div
           style={{
             display: "flex",
-            flexGrow: 1 ,
+            gap: "1em",
+            flexGrow: 1,
             justifyContent: "flex-start",
             marginTop: "10px",
             paddingBottom: "5px",
             marginBottom: "5px",
             borderBottom: "0.23rem solid gray",
             alignItems: "center",
-            overflow:"auto"
+            overflow: "auto",
           }}
         >
-          <Button
+          <Typography
             sx={{
               mr: "2px",
+              cursor: "pointer",
               flexShrink:"0",
-              fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
+              pr:"1em",
+              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" },
+              borderRight:"0.14em solid gray"
             }}
-            variant="text"
-            onClick={()=>{handleSection("All Bounties")}}
-            >
+            color="primary"
+            onClick={() => {
+              handleSection("All Bounties");
+            }}
+          >
             All Bounties
-          </Button>
-          <Divider sx={{bgcolor:"gray", width:"0.15em"}}orientation="vertical" variant="middle" flexItem />
-          <Button
+          </Typography>
+          <Typography
             sx={{
               mx: "2px",
+              cursor: "pointer",
               flexShrink:"0",
-              fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
+              pr:"1em",
+              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" },
+              borderRight:"0.14em solid gray"
             }}
-            variant="text"
-            onClick={()=>{handleSection("Posted Bounties")}}
-            >
+            color="primary"
+            onClick={() => {
+              handleSection("Posted Bounties");
+            }}
+          >
             Posted Bounties
-          </Button>
-          <Divider sx={{bgcolor:"gray", width:"0.15em"}}orientation="vertical" variant="middle" flexItem />
-          <Button
+          </Typography>
+          <Typography
             sx={{
               mx: "2px",
+              pr:"1em",
+              cursor: "pointer",
               flexShrink:"0",
-              fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
+              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" },
+              borderRight:"0.14em solid gray"
             }}
-            variant="text"
-            onClick={()=>{handleSection("Assigned Bounties")}}
+            color="primary"
+            onClick={() => {
+              handleSection("Assigned Bounties");
+            }}
           >
             Assigned Bounties
-          </Button>
-            <Divider sx={{bgcolor:"gray", width:"0.15em"}}orientation="vertical" variant="middle" flexItem />
-          <Button sx={{ mx: "2px",flexShrink:"0", fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"} }} variant="text" onClick={()=>{handleSection("Services")}}>
+          </Typography>
+          <Typography
+            sx={{
+              mx: "2px",
+              pr:"1em",
+              cursor: "pointer",
+              flexShrink:"0",
+              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" }
+            }}
+            color="primary"
+            onClick={() => {
+              handleSection("Services");
+            }}
+          >
             Services
-          </Button>
+          </Typography>
         </div>
-        {title== "Bounties" && <ServicesCard/>}
+        {title == "Bounties" && <ServicesSection />}
       </Container>
     </>
   );
