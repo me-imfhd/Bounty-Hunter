@@ -32,17 +32,20 @@ const Bounty = () => {
         <div
           style={{
             display: "flex",
+            flexGrow: 1 ,
             justifyContent: "flex-start",
             marginTop: "10px",
             paddingBottom: "5px",
             marginBottom: "5px",
             borderBottom: "0.23rem solid gray",
             alignItems: "center",
+            overflow:"auto"
           }}
         >
           <Button
             sx={{
               mr: "2px",
+              flexShrink:"0",
               fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
             }}
             variant="text"
@@ -54,7 +57,8 @@ const Bounty = () => {
           <Button
             sx={{
               mx: "2px",
-                fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
+              flexShrink:"0",
+              fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
             }}
             variant="text"
             onClick={()=>{handleSection("Posted Bounties")}}
@@ -65,6 +69,7 @@ const Bounty = () => {
           <Button
             sx={{
               mx: "2px",
+              flexShrink:"0",
               fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"}
             }}
             variant="text"
@@ -73,7 +78,7 @@ const Bounty = () => {
             Assigned Bounties
           </Button>
             <Divider sx={{bgcolor:"gray", width:"0.15em"}}orientation="vertical" variant="middle" flexItem />
-          <Button sx={{ mx: "2px", fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"} }} variant="text" onClick={()=>{handleSection("Services")}}>
+          <Button sx={{ mx: "2px",flexShrink:"0", fontSize: {xs: "1em", sm: "1.3em", md: "1.5em",lg:"1.8em"} }} variant="text" onClick={()=>{handleSection("Services")}}>
             Services
           </Button>
         </div>
