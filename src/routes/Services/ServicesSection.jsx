@@ -1,8 +1,15 @@
-import { Divider, Paper,Box } from "@mui/material";
+import { Divider, Paper,Box, IconButton } from "@mui/material";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ServicesCard from "./ServicesCard";
+import { useState } from "react";
 const ServicesSection = () => {
+  const [toggle, setToggle] = useState(true);
+  const [serviceToggle, setServiceToggle] = useState(true);
+  function handleToggle(){
+    setToggle((toggle)=> !toggle);
+    setServiceToggle((serviceToggle)=>!serviceToggle)
+  }
   return (
     <>
       <Paper
@@ -32,7 +39,9 @@ const ServicesSection = () => {
               </div>
             </div>
             <div style={{ marginTop: "0.5em" }}>
-              <ExpandMoreIcon fontSize="large"></ExpandMoreIcon>
+              <IconButton onClick={()=>{handleToggle()}}>
+                <ExpandMoreIcon sx={{color:"#cccccc", transform:`rotate(${toggle?"180":"0"}deg)`, transition:"0.3s linear"}} fontSize="large"></ExpandMoreIcon>
+              </IconButton>
             </div>
           </div>
           <div style={{ fontSize: "1.5em" }}>
@@ -41,15 +50,16 @@ const ServicesSection = () => {
           </div>
         </div>
           <Divider sx={{bgcolor:"gray"}} orientation="horizontal"/>
-          <Box sx={{display:"grid",gridAutoFlow:"column",gridAutoColumns:{xs:"72%",sm:"64%",md:"44%",lg:"39%"} ,margin:"1em",gap:"1em",overflow:"auto"}}>
+          
+          <Box sx={{display:`${serviceToggle?"none":"grid"}`,gridAutoFlow:"column",gridAutoColumns:{xs:"72%",sm:"64%",md:"44%",lg:"39%"} ,margin:"1em",gap:"1em",overflow:"auto"}}>
             <ServicesCard />  
             <ServicesCard />  
             <ServicesCard />  
             <ServicesCard />  
             <ServicesCard />  
             <ServicesCard />  
-            <ServicesCard />  
-          </Box>
+            <ServicesCard />
+          </Box>     
 
       </Paper>
     </>
