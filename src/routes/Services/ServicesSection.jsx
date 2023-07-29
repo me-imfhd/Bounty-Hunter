@@ -4,8 +4,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ServicesCard from "./ServicesCard";
 import { useState } from "react";
 const ServicesSection = () => {
-  const [toggle, setToggle] = useState(true);
-  const [serviceToggle, setServiceToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
+  const [serviceToggle, setServiceToggle] = useState(false);
   function handleToggle(){
     setToggle((toggle)=> !toggle);
     setServiceToggle((serviceToggle)=>!serviceToggle)
@@ -39,7 +39,7 @@ const ServicesSection = () => {
               </div>
             </div>
             <div style={{ marginTop: "0.5em" }}>
-              <IconButton onClick={()=>{handleToggle()}}>
+              <IconButton onClick={()=>{console.log("yo");handleToggle()}}>
                 <ExpandMoreIcon sx={{color:"#cccccc", transform:`rotate(${toggle?"180":"0"}deg)`, transition:"0.3s linear"}} fontSize="large"></ExpandMoreIcon>
               </IconButton>
             </div>
