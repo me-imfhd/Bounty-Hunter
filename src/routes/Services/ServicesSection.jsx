@@ -39,7 +39,7 @@ const ServicesSection = () => {
               </div>
             </div>
             <div style={{ marginTop: "0.5em" }}>
-              <IconButton onClick={()=>{console.log("yo");handleToggle()}}>
+              <IconButton onClick={()=>{handleToggle()}}>
                 <ExpandMoreIcon sx={{color:"#cccccc", transform:`rotate(${toggle?"180":"0"}deg)`, transition:"0.3s linear"}} fontSize="large"></ExpandMoreIcon>
               </IconButton>
             </div>
