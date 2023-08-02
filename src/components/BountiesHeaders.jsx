@@ -1,31 +1,32 @@
-import { Button,Box } from '@mui/material'
-
-const BountiesHeaders
- // eslint-disable-next-line react/prop-types
- = ({title, description}) => {
+import { Button, Box } from '@mui/material'
+import { useState } from 'react';
+import CreateBounty from './CreateBounty';
+// eslint-disable-next-line react/prop-types
+const BountiesHeaders = ({ title, description }) => {
+  const [createBountyModal, setCreateBountyModal] = useState(false);
   return (
-  <div>
-    <Box sx={{display:{xs:"block",sm:"block",md:"flex",lg:"flex"}, justifyContent:"space-between", alignItems:"flex-start",marginTop: "50px",}}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection:"column",
-          justifyContent: "space-between",
-          
-          marginBottom: "10px",
-        }}
-      >
-        <Box sx={{ fontSize: {xs: "3.2em", sm: "3.5em", md: "3.6em",lg:"4em"}, fontWeight: "600", color:"#ffffff" }}>{title}</Box>
-        <Box sx={{ fontSize:{xs: "1.3em", sm: "1.8em", md: "2em"}, fontWeight: "600" }}>
-          {description}
+    <div>
+      <Box sx={{ display: { xs: "block", sm: "block", md: "flex", lg: "flex" }, justifyContent: "space-between", alignItems: "flex-start", marginTop: "50px", }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            marginBottom: "10px"
+          }}
+        >
+          <Box sx={{ fontSize: "6cqmax", fontWeight: "600", color: "#ffffff" }}>{title}</Box>
+          <Box sx={{ fontSize: "2.2cqmax", fontWeight: "600" }}>
+            {description}
+          </Box>
+        </Box>
+        <Box>
+          <Button sx={{ fontSize: "2.2cqmax", marginTop: "1em" }} variant="contained" onClick={() => { setCreateBountyModal(true) }}>
+            Create Bounty
+          </Button>
+          {createBountyModal && <CreateBounty open={createBountyModal} setOpen={setCreateBountyModal} />}
         </Box>
       </Box>
-      <Box>
-        <Button sx={{ fontSize:{xs: "1.2em", sm: "1.4em", md: "1.6em",lg:"1.8em"},marginTop:"0.5em"}} variant="contained">
-            Create Bounty
-        </Button>
-      </Box>
-    </Box>
     </div>
   )
 }

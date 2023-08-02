@@ -31,7 +31,7 @@ const ServicesSection = () => {
                 paddingBottom: "1em",
               }}
             >
-              <div style={{ fontSize: "2em", marginRight: "0.5em" }}>
+              <div style={{ fontSize: "2.5cqmax", marginRight: "0.5em" }}>
                 Find a service
               </div>
               <div style={{ marginTop: "0.5em" }}>
@@ -44,7 +44,7 @@ const ServicesSection = () => {
               </IconButton>
             </div>
           </div>
-          <div style={{ fontSize: "1.5em" }}>
+          <div style={{ fontSize: "1.8cqmax" }}>
             Skip posting a Bounty and hire one of our top Bounty Hunters
             directly.
           </div>

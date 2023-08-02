@@ -36,7 +36,7 @@ const Bounty = () => {
   }
   return (
     <>
-      <Container maxWidth="md">
+      <Container sx={{containerType:"inline-size"}} maxWidth="md">
         <BountiesHeaders
           title={title}
           description={description}
@@ -61,7 +61,7 @@ const Bounty = () => {
               cursor: "pointer",
               flexShrink:"0",
               pr:"1em",
-              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" },
+              fontSize: "2cqmax",
               borderRight:"0.14em solid gray",
               color:`${activeTab=="Bounties"? "#ffffff":"#aaaaaa"}`
             }}
@@ -78,7 +78,7 @@ const Bounty = () => {
               cursor: "pointer",
               flexShrink:"0",
               pr:"1em",
-              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" },
+              fontSize: "2cqmax",
               borderRight:"0.14em solid gray",
               color:`${activeTab=="Posted Bounties"? "#ffffff":"#aaaaaa"}`
             }}
@@ -95,7 +95,7 @@ const Bounty = () => {
               pr:"1em",
               cursor: "pointer",
               flexShrink:"0",
-              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" },
+              fontSize: "2cqmax",
               borderRight:"0.14em solid gray",
               color:`${activeTab=="Assigned Bounties"? "#ffffff":"#aaaaaa"}`
             }}
@@ -112,7 +112,7 @@ const Bounty = () => {
               pr:"1em",
               cursor: "pointer",
               flexShrink:"0",
-              fontSize: { xs: "1.2em", sm: "1.4em", md: "1.6em", lg: "1.8em" },
+              fontSize: "2cqmax",
               color:`${activeTab=="Services"? "#ffffff":"#aaaaaa"}`
             }}
             color="primary"
