@@ -1,9 +1,10 @@
-import {Paper, Typography, Button, Grid, Box, IconButton, MenuItem, Menu} from '@mui/material';
+import { Paper, Typography, Button, Grid, Box, IconButton, MenuItem, Menu } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
-
+import CreateBounty from "./CreateBounty"
 const Appbar = () => {
+  const [createBountyModal, setCreateBountyModal] = useState(false);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -41,27 +42,27 @@ const Appbar = () => {
       >
         TASKMATE
       </Typography>
-      <Box sx={{display:{xs:"flex", sm:"flex", md:"none", lg:"none"}}}>
+      <Box sx={{ display: { xs: "flex", sm: "flex", md: "none", lg: "none" } }}>
         <Button
-            sx={{ fontSize: "1.2rem", mx: "2px" }}
-            variant="outlined"
-            onClick={() => {}}
-          >
-            Get Started
-          </Button>
-        <IconButton sx={{color:"#eeeeee"}} onClick={(e)=>{handleClick(e)}}>
-          <MenuIcon fontSize='large'/>
+          sx={{ fontSize: "1.2rem", mx: "2px" }}
+          variant="outlined"
+          onClick={() => { }}
+        >
+          Get Started
+        </Button>
+        <IconButton sx={{ color: "#eeeeee" }} onClick={(e) => { handleClick(e) }}>
+          <MenuIcon fontSize='large' />
         </IconButton>
         <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={()=>{handleClose()}}
-      >
-        <MenuItem sx={{fontSize:"1.5em"}}onClick={()=>{handleClose()}}>Create Bounty</MenuItem>
-        <MenuItem sx={{fontSize:"1.5em"}}onClick={()=>{navigate("signup");handleClose() }}>Sign Up</MenuItem>
-        <MenuItem sx={{fontSize:"1.5em"}}onClick={()=>{navigate("/login");handleClose()}}>Log In</MenuItem>
-      </Menu>
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={() => { handleClose() }}
+        >
+          <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => { setCreateBountyModal(true); createBountyModal && <CreateBounty open={createBountyModal} setOpen={setCreateBountyModal} />; handleClose() }}>Create Bounty</MenuItem>
+          <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => { navigate("signup"); handleClose() }}>Sign Up</MenuItem>
+          <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => { navigate("/login"); handleClose() }}>Log In</MenuItem>
+        </Menu>
       </Box>
 
       <Grid
@@ -69,22 +70,23 @@ const Appbar = () => {
         justifyContent="flex-end"
         alignItems="center"
         gap={1}
-        sx={{ flexGrow: 1 , display:{xs:"none",sm:"none" , md:"flex", lg:"flex"}}}
+        sx={{ flexGrow: 1, display: { xs: "none", sm: "none", md: "flex", lg: "flex" } }}
       >
         <Grid item>
           <Button
             sx={{ fontSize: "1.2rem", mx: "2px" }}
             variant="outlined"
-            onClick={() => {}}
+            onClick={() => { setCreateBountyModal(true) }}
           >
             Create Bounty
           </Button>
+          {createBountyModal && <CreateBounty open={createBountyModal} setOpen={setCreateBountyModal} />}
         </Grid>
         <Grid item>
           <Button
             sx={{ fontSize: "1.2rem", mx: "2px" }}
             variant="outlined"
-            onClick={() => {}}
+            onClick={() => { }}
           >
             Get Started
           </Button>

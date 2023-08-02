@@ -4,6 +4,7 @@ import Appbar from "./components/Appbar";
 import Bounty from "./routes/Bounty";
 import Login from "./routes/Authentication/Login";
 import Signup from "./routes/Authentication/Signup";
+
 function App() {
   return (
     <>
@@ -11,9 +12,9 @@ function App() {
         <Appbar></Appbar>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
-          <Route path="/bounty" element={<Bounty/>}></Route>
-          <Route path="/login" element={<Login/>}></Route>
-          <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/bounty" element={<Bounty />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
         </Routes>
       </Router>
     </>
