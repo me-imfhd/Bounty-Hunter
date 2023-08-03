@@ -2,7 +2,7 @@ import { Paper, Typography, Button, Grid, Box, IconButton, MenuItem, Menu } from
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
-import CreateBounty from "./CreateBounty"
+import CreateBounty from './createBounty/CreateBounty';
 const Appbar = () => {
   const [createBountyModal, setCreateBountyModal] = useState(false);
   const navigate = useNavigate();
