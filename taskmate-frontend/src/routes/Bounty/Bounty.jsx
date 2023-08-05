@@ -1,14 +1,17 @@
 import { Container, Typography } from "@mui/material";
-import BountiesHeaders from "../components/BountiesHeaders";
-import { useState } from "react";
-import ServicesSection from "./Services/ServicesSection";
+import BountiesHeaders from "./BountiesHeaders";
+import { useEffect, useState } from "react";
+import ServicesSection from "../Services/ServicesSection";
+import { useNavigate } from "react-router-dom";
+// eslint-disable-next-line react/prop-types
 const Bounty = () => {
   const [title, setTitle] = useState("Bounties");
   const [activeTab, setActiveTab] = useState("Bounties");
+  const [section, setSection] = useState("All Bounties");
   const [description, setDescription] = useState(
     "Work with Top Taskmates to actualize your dream project."
   );
-  function handleSection(section) {
+  useEffect(() => {
     if (section === "All Bounties") {
       setTitle("Bounties");
       setDescription(
@@ -33,7 +36,9 @@ const Bounty = () => {
       );
       setActiveTab("Services");
     }
-  }
+  }, [section])
+  
+
   return (
     <>
       <Container sx={{containerType:"inline-size"}} maxWidth="md">
@@ -67,7 +72,7 @@ const Bounty = () => {
             }}
             color="primary"
             onClick={() => {
-              handleSection("All Bounties");
+              setSection("All Bounties");
             }}
           >
             All Bounties
@@ -84,7 +89,7 @@ const Bounty = () => {
             }}
             color="primary"
             onClick={() => {
-              handleSection("Posted Bounties");
+              setSection("Posted Bounties");
             }}
           >
             Posted Bounties
@@ -101,7 +106,7 @@ const Bounty = () => {
             }}
             color="primary"
             onClick={() => {
-              handleSection("Assigned Bounties");
+              setSection("Assigned Bounties");
             }}
           >
             Assigned Bounties
@@ -117,7 +122,7 @@ const Bounty = () => {
             }}
             color="primary"
             onClick={() => {
-              handleSection("Services");
+              setSection("Services");
             }}
           >
             Services

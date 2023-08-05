@@ -3,40 +3,43 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    email: String,
+    fullName: String,
     numberOfBountiesCompleted: Number,
     bountyAppliedIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Bounty" }],
     bountyPostedIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Bounty" }],
-    serviceAppliedIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
+    serviceUsersIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
 
 })
 const bountySchema = new mongoose.Schema({
-    username: String,
+    posterId: String,
     title: String,
     description: String,
     amount: Number,
-    postedDate: String,
+    postedMoment: {
+      time:{type:String},
+      date:{type:String}
+    },
     completionDate: String,
     communication: String,
     communicationHandle: String,
     bountyState: String, 
     claimedBy: String,
-    appliedUsers: [String],
-    rejectedUsers: [String],
+    appliedUsersIds: [String],
+    rejectedUsersIds: [String],
 })
 
 const serviceSchema = new mongoose.Schema({
-    username: String,
+    posterId: String,
     title: String,
     price: Number,
     completionTime: String,
     experience: String,
     description: String,
-    serviceUser: [String]
+    serviceUsersIds: [String]
 })
 
 const applicantSchema = new mongoose.Schema({
-    username: String,
+    posterId: String,
     dateOfApplying: String,
     publicMessage: String,
     privateEmail: String,

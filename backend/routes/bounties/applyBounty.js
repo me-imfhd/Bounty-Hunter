@@ -9,7 +9,7 @@ router.post("/apply/:BountyId",authenticatejwt,async (req, res) => {
     if (!bounty) {
       return res.status(404).json({ msg: "Bounty not found" });
     }
-    let user = await User.findOne({ username: req.headers["userId"] }); // who will buy should be known
+    let user = await User.findOne({ username: req.headers["_id"] }); // who will buy should be known
     if (!user) {
       return res.status(403).json({msg : "user not found"});
     }

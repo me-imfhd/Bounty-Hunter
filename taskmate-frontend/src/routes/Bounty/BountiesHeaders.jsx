@@ -1,6 +1,6 @@
 import { Button, Box } from '@mui/material'
 import { useState } from 'react';
-import CreateBounty from './createBounty/CreateBounty';
+import CreateBounty from '../../components/Bounty Modals/CreateBounty';
 // eslint-disable-next-line react/prop-types
 const BountiesHeaders = ({ title, description }) => {
   const [createBountyModal, setCreateBountyModal] = useState(false);
