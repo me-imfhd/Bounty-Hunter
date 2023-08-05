@@ -3,7 +3,7 @@ const router = express.Router();
 const {User, Bounty} = require("../../database/schema")
 const {authenticatejwt} = require("../../middleware/authenticateJWT")
 
-router.post("/applyBounty/:BountyId",authenticatejwt,async (req, res) => {
+router.post("/apply/:BountyId",authenticatejwt,async (req, res) => {
     const bounty = await Bounty.findById(req.params.BountyId);
     const bountyId = bounty._id.toString();
     if (!bounty) {
@@ -28,3 +28,6 @@ router.get("/allAppliedBounty",authenticatejwt,async(req,res)=>{
     }
     return res.status(200).json({allAppliedBounty: user.bountyAppliedIds || []})
 })
+
+
+module.exports = router

@@ -3,7 +3,7 @@ const router = express.Router();
 const {User, Service} = require("../../database/schema")
 const {authenticatejwt} = require("../../middleware/authenticateJWT")
 
-router.post("/postService", authenticatejwt ,async (req,res)=>{
+router.post("/post", authenticatejwt ,async (req,res)=>{
     const {username, title, price, description,completionTime, experience} = req.body;
     const user = await User.findOne({username});
     if(!user){
@@ -17,11 +17,13 @@ router.post("/postService", authenticatejwt ,async (req,res)=>{
 })
 
 
-router.put("/updateService/:serviceId", authenticatejwt ,async(req,res)=>{ //this is done by service creator
+router.put("/update/:serviceId", authenticatejwt ,async(req,res)=>{ //this is done by service creator
     const updatedBody = req.body;
     let updateService = await Service.findByIdAndUpdate(req.params.id, updatedBody, {new:true})
     if(!updateService){
         return res.json({msg: "Invalid id maybe, Service not updated"})
     }
-    res.json({msg: "Service updated"});
+    res.json({msg: "Service updated"})
 })
+
+module.exports= router;

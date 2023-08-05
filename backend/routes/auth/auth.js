@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const {User} = require("../../database/schema")
-const jwt = require('jsonwentoken');
+const jwt = require('jsonwebtoken');
 const {secret} = require("../../middleware/authenticateJWT")
 
 const router = express.Router();
@@ -11,7 +11,7 @@ router.post("/signup", async (req, res)=>{
 
     const user = await User.findOne({username});
     if(user){
-        return res.json("User already exists");
+        return res.status(403).json({msg: "User already exists"});
     }
     const newUser = new User({username,password,email});
     await newUser.save();

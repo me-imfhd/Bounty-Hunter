@@ -3,7 +3,7 @@ const router = express.Router();
 const {User, Bounty} = require("../../database/schema")
 const {authenticatejwt} = require("../../middleware/authenticateJWT")
 
-router.post("/postBounty", authenticatejwt ,async (req,res)=>{
+router.post("/post", authenticatejwt ,async (req,res)=>{
     const {username, title, price, description,completionTime, communication, coummincationHandle} = req.body;
     const user = await User.findOne({username});
     if(!user){
@@ -26,7 +26,7 @@ router.get("/allPostedBounty",authenticatejwt,async(req,res)=>{
     return res.status(200).json({allPostedBounty: user.bountyPostedIds || []})
 })
 
-router.put("/updateBounty/:BountyId", authenticatejwt ,async(req,res)=>{ //this is done by Bounty creator
+router.put("/update/:BountyId", authenticatejwt ,async(req,res)=>{ //this is done by Bounty creator
     const updatedBody = req.body;
     let updateBounty = await Bounty.findByIdAndUpdate(req.params.id, updatedBody, {new:true})
     if(!updateBounty){
@@ -34,3 +34,5 @@ router.put("/updateBounty/:BountyId", authenticatejwt ,async(req,res)=>{ //this 
     }
     res.json({msg: "Bounty updated"});
 })
+
+module.exports = router
