@@ -10,9 +10,9 @@ function authenticatejwt(req, res, next){
     const token = authHeader.split(" ")[1];
     jwt.verify(token,secret,(err,user)=>{
         if(err){
-            return res.status(403).json({msg: "invalid token"})
+            return res.status(403).json({msg: "You are not logged In"})
         }
-        req.headers["userId"] = user.id;
+        req.headers["_id"] = user.id;
         next();
     })
 }

@@ -30,7 +30,7 @@ const Login = () => {
       enqueueSnackbar(err.response.data.msg, {variant: "error"});
       return;
     }
-    await localStorage.setItem("token", data.token);
+    localStorage.setItem("token", data.token);
     navigate("/");
     enqueueSnackbar(data.msg, {variant:"success"})
   }
