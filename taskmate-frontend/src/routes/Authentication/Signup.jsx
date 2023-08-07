@@ -4,7 +4,10 @@ import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { BASE_URL } from "../../config";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../store/atoms/user";
 const Signup = () => {
+  const setUser = useSetRecoilState(userState);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [fullName, setfullName] = useState()
@@ -12,7 +15,6 @@ const Signup = () => {
   const [password, setPassword] = useState()
   const [rememberMe, setRememberMe] = useState(false);
   async function handleSignup(){
-    let data;
     try{
       const res = await axios.post(`${BASE_URL}/auth/signup`,{
         fullName,
@@ -23,16 +25,32 @@ const Signup = () => {
           "Content-Type": "application/json"
         }
       })
-      data = res.data;
+      const data = res.data;
+      if(data.username){
+        setUser({
+        isLoading:false,
+        name: data.username
+      })
+      }
+      else{
+        setUser({
+        isLoading:false,
+        name: null
+      })
+      }
+      localStorage.setItem("token", data.token);
+      navigate("/");
+      enqueueSnackbar(data.msg, {variant:"success"})
     }
     catch (err){
-      console.error(err.response.data.msg)
+      console.error(err)
+      setUser({
+        isLoading:false,
+        name: null
+      })
       enqueueSnackbar(err.response.data.msg, {variant: "error"});
-      return;
     }
-    localStorage.setItem("token", data.token);
-    navigate("/");
-    enqueueSnackbar(data.msg, {variant:"success"})
+    
   }
   return (
     <>

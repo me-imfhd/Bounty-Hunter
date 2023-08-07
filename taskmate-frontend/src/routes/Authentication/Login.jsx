@@ -5,8 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import { useState } from "react";
 import { useSnackbar } from 'notistack';
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../store/atoms/user";
 
 const Login = () => {
+  const setUser = useSetRecoilState(userState);
   const { enqueueSnackbar } = useSnackbar();
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
@@ -23,16 +26,31 @@ const Login = () => {
           "Content-Type": "application/json"
         }
       })
-      data = res.data;
+      const data = res.data;
+      if(data.username){
+        setUser({
+        isLoading:false,
+        name: data.username
+      })
+      }
+      else{
+        setUser({
+        isLoading:false,
+        name: null
+      })
+      }
+      localStorage.setItem("token", data.token);
+      navigate("/");
+      enqueueSnackbar(data.msg, {variant:"success"})
     }
     catch (err){
-      console.error(err.response.data.msg)
+      console.error(err)
+      setUser({
+        isLoading:false,
+        name: null
+      })
       enqueueSnackbar(err.response.data.msg, {variant: "error"});
-      return;
     }
-    localStorage.setItem("token", data.token);
-    navigate("/");
-    enqueueSnackbar(data.msg, {variant:"success"})
   }
   return (
     <>

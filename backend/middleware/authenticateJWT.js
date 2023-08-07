@@ -17,6 +17,7 @@ function authenticatejwt(req, res, next){
     })
 }
 
+
 module.exports = {
     authenticatejwt,
     secret

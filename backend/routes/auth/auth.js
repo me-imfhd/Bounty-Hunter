@@ -3,8 +3,18 @@ const mongoose = require('mongoose');
 const {User} = require("../../database/schema")
 const jwt = require('jsonwebtoken');
 const {secret} = require("../../middleware/authenticateJWT")
+const {authenticatejwt} = require("../../middleware/authenticateJWT")
 
 const router = express.Router();
+
+router.get("/me", authenticatejwt, async(req,res)=>{
+    const _id = req.headers["_id"];
+    const user = await User.findOne({_id});
+    if(!user){
+        return res.json({msg:"User does not exists"});
+    }
+    res.json({username: user.fullName});
+})
 
 router.post("/signup", async (req, res)=>{
     const {username, password, fullName} = req.body;
@@ -16,22 +26,17 @@ router.post("/signup", async (req, res)=>{
     const newUser = new User({username,password,fullName});
     await newUser.save();
     const token = jwt.sign({id: newUser._id}, secret, {expiresIn : "1h"});
-    res.json({msg: "Logged in successfully", token});
+    res.json({msg: "Logged in successfully", token, fullName});
 
 })
 router.post("/login", async (req, res)=>{
     const {username, password} = req.body;
-
-    const user = await User.findOne({username});
+    const user = await User.findOne({username, password});
     if(!user){
-        return res.status(403).json({msg: "Invalid Username"})
+        return res.status(403).json({msg: "Invalid username or password"})
     }
-    const newUser = await User.findOne({username, password});
-    if(!newUser){
-        return res.status(403).json({msg: "Invalid Password"})
-    }
-    const token = jwt.sign({id: newUser._id}, secret, {expiresIn : "1h"});
-    res.json({msg: "Logged in successfully", token});
+    const token = jwt.sign({id: user._id}, secret, {expiresIn : "1h"});
+    res.json({msg: "Logged in successfully", token, username: user.fullName});
 
 })
 
