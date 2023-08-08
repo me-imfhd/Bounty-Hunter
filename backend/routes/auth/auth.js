@@ -17,25 +17,32 @@ router.get("/me", authenticatejwt, async(req,res)=>{
 })
 
 router.post("/signup", async (req, res)=>{
-    const {username, password, fullName} = req.body;
-
+    const {username, password, fullName, rememberMe} = req.body;
+    let expiresIn = "2h";
+    if(rememberMe){
+        expiresIn = "48h"
+    }
     const user = await User.findOne({username});
     if(user){
         return res.status(403).json({msg: "User already exists"});
     }
     const newUser = new User({username,password,fullName});
     await newUser.save();
-    const token = jwt.sign({id: newUser._id}, secret, {expiresIn : "1h"});
+    const token = jwt.sign({id: newUser._id}, secret, {expiresIn});
     res.json({msg: "Logged in successfully", token, fullName});
 
 })
 router.post("/login", async (req, res)=>{
-    const {username, password} = req.body;
+    const {username, password, rememberMe} = req.body;
+    let expiresIn = "2h";
+    if(rememberMe){
+        expiresIn = "48h"
+    }
     const user = await User.findOne({username, password});
     if(!user){
         return res.status(403).json({msg: "Invalid username or password"})
     }
-    const token = jwt.sign({id: user._id}, secret, {expiresIn : "1h"});
+    const token = jwt.sign({id: user._id}, secret, {expiresIn});
     res.json({msg: "Logged in successfully", token, username: user.fullName});
 
 })

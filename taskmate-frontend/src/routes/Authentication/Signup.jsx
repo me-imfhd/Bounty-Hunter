@@ -19,7 +19,8 @@ const Signup = () => {
       const res = await axios.post(`${BASE_URL}/auth/signup`,{
         fullName,
         username,
-        password 
+        password,
+        rememberMe 
       },{
         headers: {
           "Content-Type": "application/json"
