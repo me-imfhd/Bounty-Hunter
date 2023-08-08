@@ -5,11 +5,13 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import {IconButton} from "@mui/material";
-import {useState} from "react";
 import BountyForm from "./BountyForm";
+import { useRecoilState } from "recoil";
+import { createBounty, createBountyForm } from "../../store/atoms/modal";
 // eslint-disable-next-line react/prop-types
-export default function CreateBounty({open, setOpen}) {
-  const [createBountyForm, setCreateBountyForm] = useState(false);
+export default function CreateBounty() {
+  const [open , setOpen] = useRecoilState(createBounty);
+  const [formOpen, setFormOpen] = useRecoilState(createBountyForm);
   return (
     <div>
       <Modal
@@ -91,7 +93,7 @@ export default function CreateBounty({open, setOpen}) {
                 }}>
                 <Box
                   onClick={() => {
-                    setCreateBountyForm(true);
+                    setFormOpen(true);
                   }}
                   sx={{
                     bgcolor: "hsl(0, 0%, 16%)",
@@ -129,7 +131,7 @@ export default function CreateBounty({open, setOpen}) {
                 </Box>
                 <Box
                   onClick={() => {
-                    setCreateBountyForm(true);
+                    setFormOpen(true);
                   }}
                   sx={{
                     bgcolor: "hsl(0, 0%, 16%)",
@@ -167,7 +169,7 @@ export default function CreateBounty({open, setOpen}) {
                 </Box>
                 <Box
                   onClick={() => {
-                    setCreateBountyForm(true);
+                    setFormOpen(true);
                   }}
                   sx={{
                     bgcolor: "hsl(0, 0%, 16%)",
@@ -205,7 +207,7 @@ export default function CreateBounty({open, setOpen}) {
                 </Box>
                 <Box
                   onClick={() => {
-                    setCreateBountyForm(true);
+                    setFormOpen(true);
                   }}
                   sx={{
                     bgcolor: "hsl(0, 0%, 16%)",
@@ -243,11 +245,8 @@ export default function CreateBounty({open, setOpen}) {
                 </Box>
               </Box>
               <Box >
-                {createBountyForm && (
-                  <BountyForm
-                    open={createBountyForm}
-                    setOpen={setCreateBountyForm}
-                  />
+                {formOpen && (
+                  <BountyForm />
                 )}
               </Box>
             </Box>

@@ -6,18 +6,25 @@ import {BASE_URL} from "../../config"
 import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-// eslint-disable-next-line react/prop-types
-function BountyForm({open, setOpen}) {
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { createBounty, createBountyForm } from "../../store/atoms/modal";
+import { sectionRedirect } from "../../store/atoms/redirect";
+import { userState } from "../../store/atoms/user";
+
+function BountyForm() {
+  const setUser = useSetRecoilState(userState);
+  const setSection = useSetRecoilState(sectionRedirect);
+  const setCreateOpen = useSetRecoilState(createBounty)
+  const [formOpen, setFormOpen] = useRecoilState(createBountyForm)
   const navigate = useNavigate();
-  const [title, settitle] = useState();
-  const [description, setdescription] = useState();
-  const [date, setdate] = useState();
-  const [commMethod, setcommMethod] = useState("Email");
-  const [handle, sethandle] = useState("Email");
-  const [amount, setamount] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [date, setDate] = useState();
+  const [commMethod, setCommMethod] = useState("Email");
+  const [handle, setHandle] = useState("Email");
+  const [amount, setAmount] = useState();
 
   async function handlePostBounty(){
-    let data;
     try{
       const res = await axios.post(`${BASE_URL}/bounty/post`,{
         title: title,
@@ -32,13 +39,28 @@ function BountyForm({open, setOpen}) {
           Authorization: "Bearer " +localStorage.getItem("token")
         }
       })
-      data = res.data;
+      const data = res.data;
+      
+      setFormOpen(false);
+      setCreateOpen(false);
+      setSection("Posted Bounties")
+      enqueueSnackbar(data.msg, {variant:"success"});
     }catch(err){
-      console.error(err.response.data.msg);
-      enqueueSnackbar(err.response.data.msg, {variant: "error"});
+      if(err.response){
+        if(err.response.status == 403){
+          setFormOpen(false);
+          setCreateOpen(false);
+          setUser({
+            isLoading:false,
+            name: null
+          })
+          navigate("/login");
+          enqueueSnackbar(err.response.data.msg, {variant: "error"});
+        }
+      }else{
+        console.error(err);
+      }
     }
-    setOpen(false);
-    enqueueSnackbar(data.msg, {variant:"success"});
   }
   return (
     <>
@@ -46,9 +68,9 @@ function BountyForm({open, setOpen}) {
         keepMounted
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={open}
+        open={formOpen}
         onClose={() => {
-          setOpen(false);
+          setFormOpen(false);
         }}
         closeAfterTransition
         slots={{
@@ -59,7 +81,7 @@ function BountyForm({open, setOpen}) {
             timeout: 500,
           },
         }}>
-        <Fade in={open}>
+        <Fade in={formOpen}>
           <Box
             sx={{
               position: "absolute",
@@ -91,7 +113,7 @@ function BountyForm({open, setOpen}) {
               </Typography>
               <IconButton
                 onClick={() => {
-                  setOpen(false);
+                  setFormOpen(false);
                 }}>
                 <CloseIcon
                   sx={{
@@ -109,7 +131,7 @@ function BountyForm({open, setOpen}) {
                 <Typography fontSize="1.8cqmax">Bounty Title</Typography>
                 <TextField 
                   required
-                  onChange={(e)=>{settitle(e.target.value)}}
+                  onChange={(e)=>{setTitle(e.target.value)}}
                   sx={{
                     marginY: "1cqi",
                     bgcolor: "hsl(0, 0%, 16%)",
@@ -126,7 +148,7 @@ function BountyForm({open, setOpen}) {
                 <Typography fontSize="1.8cqmax">Target Completion Date</Typography>
                 <TextField
                   required
-                  onChange={(e)=>{setdate(e.target.value)}}
+                  onChange={(e)=>{setDate(e.target.value)}}
                   sx={{
                     marginY: "1cqi",
                     bgcolor: "hsl(0, 0%, 16%)",
@@ -151,7 +173,7 @@ function BountyForm({open, setOpen}) {
                       flex: "1 1 180px",
                     }}>
                     <Typography fontSize="1.8cqmax">Communication Method</Typography>
-                    <RadioGroup row defaultValue="Email" onChange={(e)=>{setcommMethod(e.target.value)}}>
+                    <RadioGroup row defaultValue="Email" onChange={(e)=>{setCommMethod(e.target.value)}}>
                       <FormControlLabel value="Email" control={<Radio sx={{"& .MuiSvgIcon-root":{fontSize:"18px"}}}/>} label="Email" />
                       <FormControlLabel value="Discord" control={<Radio sx={{"& .MuiSvgIcon-root":{fontSize:"18px"}}}/>} label="Discord" />
                     </RadioGroup>
@@ -163,7 +185,7 @@ function BountyForm({open, setOpen}) {
                     <Typography fontSize="1.8cqmax">{commMethod}</Typography>
                     <TextField
                       required
-                      onChange={(e)=>{sethandle(e.target.value)}}
+                      onChange={(e)=>{setHandle(e.target.value)}}
                       sx={{
                         marginY: "1cqi",
                         bgcolor: "hsl(0, 0%, 16%)",
@@ -182,7 +204,7 @@ function BountyForm({open, setOpen}) {
                 <Typography fontSize="1.8cqmax">Descriptions</Typography>
                 <TextareaAutosize
                  required
-                  onChange={(e)=>{setdescription(e.target.value)}}
+                  onChange={(e)=>{setDescription(e.target.value)}}
                   style={{fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif", width: "100%", minHeight: "13%", backgroundColor: "hsl(0,0%,16%)", color: "#cccccc"}}
                   maxRows={4}
                   placeholder="Be specific about what you want"
@@ -191,7 +213,7 @@ function BountyForm({open, setOpen}) {
                 <Typography fontSize="1.8cqmax">Bounty Amount</Typography>
                 <TextField
                   required
-                  onChange={(e)=>{setamount(e.target.value)}}
+                  onChange={(e)=>{setAmount(e.target.value)}}
                   sx={{
                     marginY: "1cqi",
                     bgcolor: "hsl(0, 0%, 16%)",
@@ -261,7 +283,7 @@ function BountyForm({open, setOpen}) {
                 <Box sx={{display: "flex", alignItems: "center"}}>
                   <Button
                     onClick={() => {
-                      setOpen(false);
+                      setFormOpen(false);
                     }}
                     style={{backgroundColor: "hsl(0, 0%, 16%"}}
                     sx={{color: "#ffffff", fontSize:"0.9em"}}
@@ -279,7 +301,7 @@ function BountyForm({open, setOpen}) {
                     Buy Custom Cycle Amounts
                   </Button>
                   <Button
-                    disabled={(!title || !description) || (!date || !commMethod) || (!handle || !amount)}
+                    
                     onClick={()=>{handlePostBounty()}}
                     sx={{color: "#ffffff", fontSize:"0.9em"}}
                     size="small"

@@ -1,9 +1,11 @@
 import { Button, Box } from '@mui/material'
 import { useState } from 'react';
 import CreateBounty from '../../components/Bounty Modals/CreateBounty';
+import { useRecoilState } from 'recoil';
+import { createBounty } from "../../store/atoms/modal";
 // eslint-disable-next-line react/prop-types
 const BountiesHeaders = ({ title, description }) => {
-  const [createBountyModal, setCreateBountyModal] = useState(false);
+  const [open, setOpen] = useRecoilState(createBounty)
   return (
     <div>
       <Box sx={{ display: { xs: "block", sm: "block", md: "flex", lg: "flex" }, justifyContent: "space-between", alignItems: "flex-start", marginTop: "50px", }}>
@@ -21,10 +23,10 @@ const BountiesHeaders = ({ title, description }) => {
           </Box>
         </Box>
         <Box>
-          <Button sx={{ fontSize: "2.2cqmax", marginTop: "1em" }} variant="contained" onClick={() => { setCreateBountyModal(true) }}>
+          <Button sx={{ fontSize: "2.2cqmax", marginTop: "1em" }} variant="contained" onClick={() => { setOpen(true) }}>
             Create Bounty
           </Button>
-          {createBountyModal && <CreateBounty open={createBountyModal} setOpen={setCreateBountyModal} />}
+          {open && <CreateBounty/>}
         </Box>
       </Box>
     </div>

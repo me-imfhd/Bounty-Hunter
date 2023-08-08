@@ -4,12 +4,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useEffect, useState } from 'react';
 import CreateBounty from './Bounty Modals/CreateBounty';
 import { enqueueSnackbar } from 'notistack';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { usersName } from '../store/selectors/user/usersName';
 import { isUserLoading } from '../store/selectors/user/isUserLoading';
 import { userState } from '../store/atoms/user';
+import { createBounty } from '../store/atoms/modal';
 const Appbar = () => {
-  const [createBountyModal, setCreateBountyModal] = useState(false);
+  const [createOpen , setCreateOpen] = useRecoilState(createBounty);
   const setUser = useSetRecoilState(userState);
   const userLoading = useRecoilValue(isUserLoading)
   const fullName = useRecoilValue(usersName)
@@ -81,7 +82,8 @@ const Appbar = () => {
           open={open}
           onClose={() => { handleClose() }}
         >
-          <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => { setCreateBountyModal(true); createBountyModal && <CreateBounty open={createBountyModal} setOpen={setCreateBountyModal} />; handleClose() }}>Create Bounty</MenuItem>
+          <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => { setCreateOpen(true); handleClose() }}>Create Bounty</MenuItem>
+          {createOpen && <CreateBounty/>}
           {!fullName && <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => { navigate("signup"); handleClose() }}>Sign Up</MenuItem>}
           {!fullName && <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => { navigate("/login"); handleClose() }}>Log In</MenuItem>}
           {fullName && <MenuItem sx={{ fontSize: "1.5em" }} onClick={() => {setUser({
@@ -104,11 +106,11 @@ const Appbar = () => {
           <Button
             sx={{ fontSize: "1.2rem", mx: "2px" }}
             style={{backgroundColor: "hsl(0, 0%, 16%",color:"#eeeeee"}}
-            onClick={() => { setCreateBountyModal(true) }}
+            onClick={() => { setCreateOpen(true) }}
           >
             Create Bounty
           </Button>
-          {createBountyModal && <CreateBounty open={createBountyModal} setOpen={setCreateBountyModal} />}
+          {createOpen && <CreateBounty/>}
         </Grid>
         <Grid item>
           <Button

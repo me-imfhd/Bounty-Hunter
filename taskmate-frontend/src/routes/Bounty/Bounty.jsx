@@ -3,11 +3,13 @@ import BountiesHeaders from "./BountiesHeaders";
 import { useEffect, useState } from "react";
 import ServicesSection from "../Services/ServicesSection";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { sectionRedirect } from "../../store/atoms/redirect";
 // eslint-disable-next-line react/prop-types
 const Bounty = () => {
   const [title, setTitle] = useState("Bounties");
   const [activeTab, setActiveTab] = useState("Bounties");
-  const [section, setSection] = useState("All Bounties");
+  const [section, setSection] = useRecoilState(sectionRedirect);
   const [description, setDescription] = useState(
     "Work with Top Taskmates to actualize your dream project."
   );

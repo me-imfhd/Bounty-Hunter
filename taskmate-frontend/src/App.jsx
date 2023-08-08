@@ -49,7 +49,6 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/bounty" element={<Bounty/>}></Route>
-
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
         </Routes>

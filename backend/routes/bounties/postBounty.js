@@ -6,7 +6,6 @@ const {authenticatejwt} = require("../../middleware/authenticateJWT")
 router.post("/post", authenticatejwt ,async (req,res)=>{
     const _id = req.headers["_id"];
     const {title, price, description,completionTime, communication, coummincationHandle} = req.body;
-    console.log(req.body);
     const user = await User.findOne({_id});
     if(!user){
         return res.status(403).json({msg: "Username not found"})
